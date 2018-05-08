@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/jbar894/library-app#readme",
   "dependencies": {
+    "bootstrap": "^4.1.1",
     "chalk": "^2.4.1",
-    "express": "4.15.2"
+    "debug": "2.6.6",
+    "express": "4.15.2",
+    "jquery": "^3.3.1",
+    "morgan": "^1.9.0"
   }
 }
