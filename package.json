@@ -4,7 +4,9 @@
   "description": "Basic library app to learn nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=app nodemon app.js",
+    "lint": "eslint app.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +19,31 @@
   },
   "homepage": "https://github.com/jbar894/library-app#readme",
   "dependencies": {
-    "bootstrap": "^4.1.1",
-    "chalk": "^2.4.1",
+    "bootstrap": "3.3.7",
+    "chalk": "2.4.1",
     "debug": "2.6.6",
+    "ejs": "^2.6.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
     "express": "4.15.2",
-    "jquery": "^3.3.1",
-    "morgan": "^1.9.0"
+    "jquery": "3.2.1",
+    "morgan": "1.8.1",
+    "nodemon": "^1.17.4",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "nodemonCOnfig": {
+    "restartable": "rs",
+    "igonore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 4000
+    }
   }
 }
