@@ -1,80 +1,105 @@
 const express = require('express');
+const { MongoClient } = require('mongodb');
+const debug = require('debug')('app:bookRoutes');
 
 const bookRouter = express.Router();
-const sql = require('mssql');
-const debug = require('debug')('app:bookRoutes');
 
 function router(nav) {
   const books = [
     {
-      title: 'book1',
-      genre: 'genre1',
-      author: 'author1',
+      title: 'War and Peace',
+      genre: 'Historical Fiction',
+      author: 'Lev Nikolayevich Tolstoy',
       read: false
     },
     {
-      title: 'book2',
-      genre: 'genre2',
-      author: 'author2',
+      title: 'Les Misérables',
+      genre: 'Historical Fiction',
+      author: 'Victor Hugo',
       read: false
     },
     {
-      title: 'book3',
-      genre: 'genre3',
-      author: 'author3',
+      title: 'The Time Machine',
+      genre: 'Science Fiction',
+      author: 'H. G. Wells',
       read: false
     },
     {
-      title: 'book4',
-      genre: 'genre4',
-      author: 'author4',
+      title: 'A Journey into the Center of the Earth',
+      genre: 'Science Fiction',
+      author: 'Jules Verne',
       read: false
-    }
-  ];
-
+    },
+    {
+      title: 'The Dark World',
+      genre: 'Fantasy',
+      author: 'Henry Kuttner',
+      read: false
+    },
+    {
+      title: 'The Wind in the Willows',
+      genre: 'Fantasy',
+      author: 'Kenneth Grahame',
+      read: false
+    },
+    {
+      title: 'Life On The Mississippi',
+      genre: 'History',
+      author: 'Mark Twain',
+      read: false
+    },
+    {
+      title: 'Childhood',
+      genre: 'Biography',
+      author: 'Lev Nikolayevich Tolstoy',
+      read: false
+    }];
   bookRouter.route('/')
     .get((req, res) => {
-      (async function query() {
-        const request = new sql.Request();
+      const url = 'mongodb://localhost:27017';
+      const dbName = 'libraryApp';
 
-        const { recordset } = await request.query('select * from books');
+      (async function mongo() {
+        let client;
+        try {
+          client = await MongoClient.connect(url);
+          debug('Connected correctly to server');
 
-        res.render(
-          'bookListView',
-          {
-            nav,
-            title: 'Library',
-            books: recordset
-          }
-        );
+          const db = client.db(dbName);
+
+          const col = await db.collection('books');
+
+          const books = await col.find().toArray();
+          
+          res.render(
+            'bookListView',
+            {
+              nav,
+              title: 'Library',
+              books
+            }
+          );
+        } catch (err) {
+          debug(err.stack);
+        }
+        client.close();
       }());
     });
 
   bookRouter.route('/:id')
-    .all((req, res, next) => {
-      (async function query() {
-        const { id } = req.params;
-        const request = new sql.Request();
-        const { recordset } =
-          await request
-            .input('id', sql.Int, id)
-            .query('select * from books where id = @id');
-        [req.book] = recordset;
-        next();
-      }());
-    })
     .get((req, res) => {
+      const { id } = req.params;
       res.render(
         'bookView',
         {
           nav,
           title: 'Library',
-          book: req.book
+          book: books[id]
         }
       );
     });
-
   return bookRouter;
 }
+
 
 module.exports = router;
