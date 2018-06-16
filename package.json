@@ -19,18 +19,23 @@
   },
   "homepage": "https://github.com/jbar894/library-app#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "bootstrap": "3.3.7",
     "chalk": "2.4.1",
+    "cookie-parser": "^1.4.3",
     "debug": "2.6.6",
     "ejs": "^2.6.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "express": "4.15.2",
+    "express-session": "^1.15.6",
     "jquery": "3.2.1",
     "mongodb": "^3.1.0-beta4",
     "morgan": "1.8.1",
     "mssql": "^4.1.0",
     "nodemon": "^1.17.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.3"
   },
   "devDependencies": {
