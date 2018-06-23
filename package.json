@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jbar894/library-app#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bootstrap": "3.3.7",
     "chalk": "2.4.1",
@@ -36,7 +37,8 @@
     "nodemon": "^1.17.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^12.1.0",
